@@ -1,0 +1,21 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Cs-fixer and PhpUnit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test
+        run: |
+          composer install --prefer-source --no-interaction
+          ./vendor/bin/phpcs --standard=phpcs.xml -p
+          ./vendor/bin/phpunit
